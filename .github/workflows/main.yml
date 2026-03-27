@@ -36,15 +36,15 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build Docker image
-        run: docker build -t hoanglinh2k3/builddocker:latest .
+        run: docker build -t hoanglinhnguyendev/builddocker:latest .
 
       - name: Push Docker image
-        run: docker push hoanglinh2k3/builddocker:latest
+        run: docker push hoanglinhnguyendev/builddocker:latest
 
       - name: Triển khai lên DevOps Classroom
         run: |
-          REPO="hoanglinh2k3/builddocker"
-          CONTAINER_PORT=80
+          REPO="hoanglinhnguyendev/builddocker"
+          CONTAINER_PORT=8080
           RESPONSE=$(curl -sS -w "\n%{http_code}" -X POST "${{ secrets.DEPLOY_URL }}?repo=$REPO&tag=latest&slot=6&container_port=$CONTAINER_PORT&strict_container_port=0")
           BODY=$(echo "$RESPONSE" | sed '$d')
           CODE=$(echo "$RESPONSE" | tail -n1)
